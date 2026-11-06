@@ -1813,7 +1813,7 @@ async function stepOrder(t) {
     const l2 = `Yes, I would like ${c.extra}, please.`;
     say(l2, c.members[0]);
     instr('<span class="emo">👂</span> Listen! Tap the NEW food. Then tap ✓.');
-    dishes.forEach(el => { if (el.classList.contains('sel')) el.classList.add('locked'); });
+    dishes.forEach(el => { el.classList.remove('right'); el.classList.toggle('locked', el.classList.contains('sel')); });
     await askDishes(t, c.order.concat([c.extra]), l2, [c.extra], true);
     await sleep(800, t);
   }
