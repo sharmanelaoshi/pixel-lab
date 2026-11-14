@@ -9,7 +9,7 @@
 <style>
 :root{--font:"Baloo 2","Arial Rounded MT Bold","Trebuchet MS","Segoe UI",system-ui,sans-serif;--pink:#ff3df2;--cyan:#2de2ff;--gold:#ffe14d;--green:#3dff8b}
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;background:#000;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;font-family:var(--font);-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#120a30;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;font-family:var(--font);-webkit-tap-highlight-color:transparent}
 #stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;background:#0a0320;color:#fff}
 .layer{position:absolute;left:0;top:0;width:1920px;height:1080px}
 #bg{z-index:0;overflow:hidden}
@@ -483,8 +483,11 @@ const TR={
 const S={pairs:8,finalMode:'all',names:[],students:[],pair:0,history:[],paused:false,flow:null,champ:null};
 const stage=$('#stage'),ui=$('#ui'),bgEl=$('#bg'),hud=$('#hud'),gcv=$('#game'),gctx=gcv.getContext('2d'),fxcv=$('#fx'),fxc=fxcv.getContext('2d');
 let SCALE=1;
-function fit(){SCALE=Math.min(innerWidth/W,innerHeight/H);stage.style.transform=`translate(${(innerWidth-W*SCALE)/2}px,${(innerHeight-H*SCALE)/2}px) scale(${SCALE})`;}
-addEventListener('resize',fit);fit();
+let RES=1;
+function fit(){SCALE=Math.min(innerWidth/W,innerHeight/H);stage.style.transform=`translate(${(innerWidth-W*SCALE)/2}px,${(innerHeight-H*SCALE)/2}px) scale(${SCALE})`;
+  const r=clamp(Math.ceil(SCALE*(window.devicePixelRatio||1)*4)/4,1,2);
+  if(r!==RES){RES=r;for(const cv of [gcv,fxcv]){cv.width=W*RES;cv.height=H*RES;}FX.had=true;}}
+addEventListener('resize',()=>fit());
 function toStage(e){const r=stage.getBoundingClientRect();return{x:(e.clientX-r.left)/SCALE,y:(e.clientY-r.top)/SCALE,id:e.pointerId};}
 document.addEventListener('contextmenu',e=>e.preventDefault());
 
@@ -582,6 +585,7 @@ const FX={p:[],had:false,
   burst(x,y,n=40,colors){colors=colors||['#ffe14d','#fff','#ff3df2'];for(let i=0;i<n;i++){const a=rand(0,TAU),s=rand(200,900);this.p.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,g:600,w:rand(10,18),h:rand(10,18),r:0,vr:rand(-8,8),col:pick(colors),life:rand(.8,1.4),t:0,drag:.96,star:true});}},
   update(dt){for(const q of this.p){q.t+=dt;q.vx*=q.drag;q.vy=q.vy*q.drag+q.g*dt;q.x+=q.vx*dt;q.y+=q.vy*dt;q.r+=q.vr*dt;}this.p=this.p.filter(q=>q.t<q.life&&q.y<H+100);},
   draw(){
+    fxc.setTransform(RES,0,0,RES,0,0);
     if(!this.p.length){if(this.had){fxc.clearRect(0,0,W,H);this.had=false;}return;}
     this.had=true;fxc.clearRect(0,0,W,H);
     for(const q of this.p){fxc.save();fxc.globalAlpha=clamp((q.life-q.t)/.6,0,1);fxc.translate(q.x,q.y);fxc.rotate(q.r);fxc.fillStyle=q.col;
@@ -624,10 +628,11 @@ let lastT=performance.now();
 function loop(t){
   const dt=Math.min(.05,(t-lastT)/1000); lastT=t;
   if(!S.paused){ if(scene) scene.update(dt); FX.update(dt); }
-  if(scene) scene.draw(gctx);
+  if(scene){gctx.setTransform(RES,0,0,RES,0,0);scene.draw(gctx);}
   FX.draw();
   requestAnimationFrame(loop);
 }
+fit();
 requestAnimationFrame(loop);
 gcv.addEventListener('pointerdown',e=>{AU.init();if(S.paused||!scene||!scene.down)return;try{gcv.setPointerCapture(e.pointerId);}catch(_){}scene.down(toStage(e));});
 gcv.addEventListener('pointermove',e=>{if(S.paused||!scene||!scene.move)return;scene.move(toStage(e));});
@@ -1357,7 +1362,7 @@ class CompGame{
       for(const seg of z.segs){c.beginPath();seg.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.stroke();}
       c.lineWidth=6;c.beginPath();c.arc(z.x,z.y,40+z.t*400,0,TAU);c.stroke();circ(c,z.x,z.y,60*a,`rgba(255,255,255,${a})`);}
     c.restore();
-    if(this.glitch>0){for(let i=0;i<8;i++){const y=rand(0,H),h=rand(10,60);c.drawImage(gcv,0,y,W,h,rand(-60,60),y,W,h);}
+    if(this.glitch>0){for(let i=0;i<8;i++){const y=rand(0,H),h=rand(10,60);c.drawImage(gcv,0,y*RES,W*RES,h*RES,rand(-60,60),y,W,h);}
       c.fillStyle=`rgba(255,0,60,${this.glitch*.25})`;c.fillRect(0,0,W,H);
       txt(c,'⚠ FILE DELETED! 😱',960,560,110,'#fff',{stroke:14,glow:'#ff0033',blur:30});}
     c.drawImage(this.scan,0,0);
