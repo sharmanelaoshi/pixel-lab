@@ -7,5 +7,7 @@
 - Word bank: tap **📝 Word bank** on the start screen (or "Edit word bank" on the Lucky Card screen) to change the ___ing words. The browser saves them.
 - Avatars: tap **🧑‍🎨 Avatars** on the start screen. Each student picks skin, hair, hair color, glasses and an extra (cap, headphones, bow, star).
 - Lucky Cards: tap **🍀 Lucky Cards** to write your own challenges, one per line (`TITLE: text`). Cards with `___` show the word bank. The browser saves them.
+- Game time: choose 10s / 15s / 20s on the start screen.
+- Speaking practice: model answers to say together after Yes/No, a class prediction ("I think ___ will win!"), a he/she question on the winner screen, and "I want to join the ___ club!" when joining.
 - Teacher buttons (top right): ⏸ pause · ⏭ skip · 🔊 sound · ↩ undo last pair · ⟲ restart.
 - Keyboard (testing): D F J K for piano lanes, ← → for the catcher.
