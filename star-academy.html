@@ -59,11 +59,11 @@ button{font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparen
 @keyframes sweepR{from{transform:rotate(25deg)}to{transform:rotate(-15deg)}}
 /* ===== setup ===== */
 .logo{position:relative;text-align:center}
-.logo .star-big{font-size:120px;display:inline-block;animation:spin 6s linear infinite;filter:drop-shadow(0 0 30px #ffe14d)}
+.logo .star-big{font-size:80px;display:inline-block;animation:spin 6s linear infinite;filter:drop-shadow(0 0 30px #ffe14d)}
 @keyframes spin{to{transform:rotate(360deg)}}
-.logo .t1{font-size:150px;font-weight:800;line-height:.9;letter-spacing:4px;background:linear-gradient(90deg,#ffe14d,#ff3df2,#2de2ff,#ffe14d);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite;filter:drop-shadow(0 6px 0 rgba(0,0,0,.4)) drop-shadow(0 0 30px rgba(255,61,242,.6))}
+.logo .t1{font-size:128px;font-weight:800;line-height:.9;letter-spacing:4px;background:linear-gradient(90deg,#ffe14d,#ff3df2,#2de2ff,#ffe14d);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite;filter:drop-shadow(0 6px 0 rgba(0,0,0,.4)) drop-shadow(0 0 30px rgba(255,61,242,.6))}
 @keyframes shine{to{background-position:300% 0}}
-.logo .t2{font-size:72px;font-weight:800;letter-spacing:18px;color:#fff;text-shadow:0 0 20px #2de2ff,0 0 50px #2de2ff;margin-top:6px}
+.logo .t2{font-size:62px;font-weight:800;letter-spacing:18px;color:#fff;text-shadow:0 0 20px #2de2ff,0 0 50px #2de2ff;margin-top:6px}
 .setting{display:flex;align-items:center;gap:24px;font-size:46px;font-weight:700}
 .stepper{display:flex;align-items:center;gap:18px}
 .stepper button{width:96px;height:96px;border-radius:50%;border:none;font-size:64px;font-weight:800;color:#fff;background:linear-gradient(135deg,#2de2ff,#3a5bff);box-shadow:0 0 20px rgba(45,226,255,.6)}
@@ -177,7 +177,7 @@ button{font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparen
 .lcard .front .ti{font-size:26px;font-weight:800;color:#d4148a;letter-spacing:2px}
 .lcard .front .tx{font-size:30px;font-weight:800;line-height:1.2;margin-top:6px}
 .hintbar{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:1600px}
-.hintbar .chip{font-size:32px}
+.hintbar .chip{font-size:28px;padding:4px 20px}
 /* join roulette */
 .rlt{display:flex;gap:30px;margin:30px 0}
 .rlt .rc{width:320px;height:260px;border-radius:36px;border:5px solid var(--c);background:rgba(16,8,44,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:52px;font-weight:800;transition:transform .12s,box-shadow .12s;opacity:.55}
@@ -223,6 +223,21 @@ button{font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparen
 @keyframes bump{50%{transform:scale(1.25)}}
 .hud-beat{margin-top:8px;font-size:36px;font-weight:800;padding:4px 24px;border-radius:999px;background:rgba(255,61,242,.25);border:2px solid #ff3df2;display:inline-block}
 .hud-beat.beaten{background:rgba(61,255,139,.3);border-color:#3dff8b}
+/* avatar studio */
+.avgrid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;max-width:1760px;margin:20px 0}
+.avcard{width:190px;padding:10px 6px;border-radius:26px;border:4px solid #2de2ff;background:rgba(16,8,44,.85);color:#fff;display:flex;flex-direction:column;align-items:center;box-shadow:0 0 18px rgba(45,226,255,.5)}
+.avcard:active{transform:scale(.95)}
+.avcard .a{width:120px;height:144px}.avcard b{font-size:30px;line-height:1.1;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.studio{display:flex;gap:60px;align-items:center}
+.studio .prev{width:400px;display:flex;flex-direction:column;align-items:center}
+.studio .prev .a{width:360px;height:432px;animation:idle 2s ease-in-out infinite}
+.studio .opts{display:flex;flex-direction:column;gap:18px}
+.studio .orow{display:flex;align-items:center;gap:14px}
+.studio .orow>span{width:200px;font-size:38px;font-weight:800;color:#ffe14d}
+.sw{width:84px;height:84px;border-radius:50%;border:5px solid rgba(255,255,255,.25)}
+.sw.on,.op.on{border-color:#ffe14d;box-shadow:0 0 20px #ffe14d}
+.op{width:112px;height:124px;border-radius:22px;background:rgba(255,255,255,.08);border:5px solid transparent;padding:4px;color:#fff;font-size:30px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.op .a{width:96px;height:112px}
 /* modal */
 .wbt{width:1000px;height:430px;font-family:inherit;font-size:36px;font-weight:700;padding:16px 24px;border-radius:24px;border:3px solid #2de2ff;background:rgba(0,0,0,.4);color:#fff;outline:none;resize:none;user-select:text;-webkit-user-select:text;margin:16px 0 26px;line-height:1.3}
 
@@ -451,7 +466,12 @@ function setBg(mode,club){
 /* ---------------- avatars ---------------- */
 const SKINS=['#ffdcb8','#f6c99a','#eab585','#d99a6c','#c68642'];
 const HAIRS=['#1b1310','#2b1a10','#3d2414','#141414','#5a3214','#7a4b25'];
-function genLook(){return{skin:pick(SKINS),hair:pick(HAIRS),style:ri(0,4),glasses:Math.random()<.2,blush:Math.random()<.6};}
+function genLook(){return{skin:pick(SKINS),hair:pick(HAIRS),style:ri(0,4),glasses:Math.random()<.2,blush:Math.random()<.6,acc:Math.random()<.3?ri(1,4):0};}
+const ACC_SVG=['',
+ '<path d="M19 40 Q19 9 50 9 Q81 9 81 40Z" fill="#ff3df2"/><path d="M50 35 L96 39 Q92 47 50 44Z" fill="#c4119f"/><circle cx="50" cy="10" r="4" fill="#c4119f"/>',
+ '<path d="M17 54 Q17 10 50 10 Q83 10 83 54" fill="none" stroke="#2de2ff" stroke-width="6"/><rect x="9" y="44" width="15" height="24" rx="7" fill="#2de2ff"/><rect x="76" y="44" width="15" height="24" rx="7" fill="#2de2ff"/>',
+ '<g transform="translate(72 20)"><path d="M0 0 L-15 -11 L-15 11Z M0 0 L15 -11 L15 11Z" fill="#ff4fa3"/><circle r="5.5" fill="#ff9ccf"/></g>',
+ '<polygon points="28,12 32,22 43,22 34,29 37,40 28,33 19,40 22,29 13,22 24,22" fill="#ffe14d" stroke="#c98a00" stroke-width="1.5"/>'];
 function avatarSVG(st,shirt){
   const L=st.look; shirt=shirt||(st.club?CB(st.club).c:'#9aa3c7');
   const h=L.hair; let back='',front;
@@ -475,6 +495,7 @@ function avatarSVG(st,shirt){
   ${L.blush?'<circle cx="32" cy="63" r="5" fill="#ff7aa8" opacity=".5"/><circle cx="68" cy="63" r="5" fill="#ff7aa8" opacity=".5"/>':''}
   <path d="M41 65 Q50 73 59 65" fill="none" stroke="#7a2a2a" stroke-width="3.5" stroke-linecap="round"/>
   ${L.glasses?'<g fill="none" stroke="#222" stroke-width="2.6"><circle cx="40" cy="54" r="9"/><circle cx="60" cy="54" r="9"/><path d="M49 54h2"/></g>':''}
+  ${ACC_SVG[L.acc||0]||''}
   </svg>`;
 }
 function memHTML(st,size,pending){return `<div class="mem${pending?' pending':''}" data-sid="${st.id}" style="--s:${size}px"><div class="avb">${avatarSVG(st)}</div><div class="mn">${esc(st.name)}</div></div>`;}
@@ -1301,21 +1322,25 @@ function setupScreen(){
   scene=null;showCanvas(false);Run.hideHUD&&Run.hideHUD();Seq.play('court');
   screen(`
     <div class="logo"><div class="star-big">⭐</div><div class="t1">STAR ACADEMY</div><div class="t2">CLUB TRYOUTS</div></div>
-    <div class="row" style="gap:20px;margin:26px 0 10px">${CLUBS.map(c=>`<div class="chip" style="border-color:${c.c};color:${c.c};font-size:40px">${c.emoji} ${c.name}</div>`).join('')}</div>
-    <div class="panel col" style="gap:26px;margin-top:20px;padding:30px 60px">
+    <div class="row" style="gap:20px;margin:16px 0 0">${CLUBS.map(c=>`<div class="chip" style="border-color:${c.c};color:${c.c};font-size:40px">${c.emoji} ${c.name}</div>`).join('')}</div>
+    <div class="panel col" style="gap:18px;margin-top:20px;padding:22px 60px">
       <div class="setting">Pairs:<div class="stepper"><button data-act="minus">−</button><div class="num" id="pairNum">${S.pairs}</div><button data-act="plus">+</button></div><span style="opacity:.7;font-size:36px">(<span id="stuNum">${S.pairs*2}</span> students)</span></div>
       <div class="setting">Final:<div class="toggle"><button data-act="fm:all" class="${S.finalMode==='all'?'on':''}">All 4 clubs</button><button data-act="fm:top2" class="${S.finalMode==='top2'?'on':''}">2 biggest clubs</button></div></div>
     </div>
-    <div class="row" style="margin-top:30px;gap:24px">
-      <button class="btn cyan" data-act="names" style="font-size:40px">✏️ Names</button>
-      <button class="btn cyan" data-act="words" style="font-size:40px">📝 Word bank</button>
-      <button class="btn gray" data-act="fs" style="font-size:40px">⛶ Full screen</button>
+    <div class="row" style="margin-top:30px;gap:18px">
+      <button class="btn cyan" data-act="names" style="font-size:36px;padding:14px 34px">✏️ Names</button>
+      <button class="btn cyan" data-act="avatars" style="font-size:36px;padding:14px 34px">🧑‍🎨 Avatars</button>
+      <button class="btn cyan" data-act="words" style="font-size:36px;padding:14px 34px">📝 Word bank</button>
+      <button class="btn cyan" data-act="cards" style="font-size:36px;padding:14px 34px">🍀 Lucky Cards</button>
+      <button class="btn gray" data-act="fs" style="font-size:36px;padding:14px 34px">⛶ Full screen</button>
     </div>
     <div style="margin-top:26px"><button class="btn gold big pulse" data-act="start">▶ START</button></div>`,{acts:{
       minus(){S.pairs=Math.max(6,S.pairs-1);upd();},plus(){S.pairs=Math.min(10,S.pairs+1);upd();},
       fm(v){S.finalMode=v;setupScreen();},
       names(){namesScreen();},
       words(){wordsModal();},
+      cards(){cardsModal();},
+      avatars(){avatarsScreen();},
       fs(){goFull();},
       start(){goFull();sfx.fanfare();startTournament();}
     },skip:()=>startTournament()});
@@ -1330,8 +1355,38 @@ function namesScreen(){
     {acts:{done(){save();setupScreen();},clear(){S.names=[];namesScreen();}},skip:()=>{save();setupScreen();}});
   function save(){ui.querySelectorAll('input[data-i]').forEach(inp=>{S.names[+inp.dataset.i]=inp.value.trim();});}
 }
+/* ---------- AVATAR STUDIO ---------- */
+S.looks=[];
+function ensureLooks(){for(let i=0;i<S.pairs*2;i++)if(!S.looks[i])S.looks[i]=genLook();}
+function tmpStu(i){return{id:i,name:(S.names[i]||'').trim()||`Star ${i+1}`,look:S.looks[i],club:null};}
+function avatarsScreen(){
+  ensureLooks();
+  let cards='';for(let i=0;i<S.pairs*2;i++)cards+=`<button class="avcard" data-act="ed:${i}"><div class="a">${avatarSVG(tmpStu(i))}</div><b>${esc(tmpStu(i).name)}</b></button>`;
+  screen(`<p class="h1 neon" style="--c:#ff3df2;font-size:80px">🧑‍🎨 Avatar Studio</p><div class="h3">Tap your name and design your avatar!</div>
+    <div class="avgrid">${cards}</div>
+    <div class="row" style="gap:24px"><button class="btn orange" data-act="rnd" style="font-size:40px">🎲 Shuffle all</button><button class="btn green" data-act="done" style="font-size:40px">✔ Done</button></div>`,
+    {acts:{ed(i){avatarEditor(+i);},rnd(){for(let i=0;i<S.pairs*2;i++)S.looks[i]=genLook();avatarsScreen();},done(){setupScreen();}},skip:()=>setupScreen()});
+}
+function avatarEditor(i){
+  const L=S.looks[i];
+  const mini=ch=>avatarSVG({look:Object.assign({},L,ch),club:null});
+  screen(`<div class="studio"><div class="prev"><div class="a" id="avPrev"></div><div class="h2">${esc(tmpStu(i).name)}</div></div><div class="opts" id="avOpts"></div></div>
+    <div class="row" style="gap:24px;margin-top:26px"><button class="btn orange" data-act="rnd" style="font-size:40px">🎲 Random</button><button class="btn green big" data-act="ok">✔ Done</button></div>`,
+    {acts:{sk(k){L.skin=SKINS[k];draw();},hs(k){L.style=+k;draw();},hc(k){L.hair=HAIRS[k];draw();},gl(v){L.glasses=v==='1';draw();},ac(k){L.acc=+k;draw();},
+      rnd(){Object.assign(L,genLook());draw();},ok(){sfx.yes();avatarsScreen();}},skip:()=>avatarsScreen()});
+  function draw(){
+    $('#avPrev').innerHTML=avatarSVG({look:L,club:null},'#ff3df2');
+    $('#avOpts').innerHTML=`
+      <div class="orow"><span>Skin</span>${SKINS.map((c,k)=>`<button class="sw ${L.skin===c?'on':''}" style="background:${c}" data-act="sk:${k}"></button>`).join('')}</div>
+      <div class="orow"><span>Hair</span>${[0,1,2,3,4].map(k=>`<button class="op ${L.style===k?'on':''}" data-act="hs:${k}"><div class="a">${mini({style:k,acc:0,glasses:false})}</div></button>`).join('')}</div>
+      <div class="orow"><span>Hair color</span>${HAIRS.map((c,k)=>`<button class="sw ${L.hair===c?'on':''}" style="background:${c}" data-act="hc:${k}"></button>`).join('')}</div>
+      <div class="orow"><span>Glasses</span><button class="op ${!L.glasses?'on':''}" data-act="gl:0">No</button><button class="op ${L.glasses?'on':''}" data-act="gl:1"><div class="a">${mini({glasses:true,acc:0})}</div></button></div>
+      <div class="orow"><span>Extra</span>${[0,1,2,3,4].map(k=>`<button class="op ${(L.acc||0)===k?'on':''}" data-act="ac:${k}">${k?`<div class="a">${mini({acc:k})}</div>`:'None'}</button>`).join('')}</div>`;
+  }
+  draw();
+}
 function startTournament(){
-  S.students=[];for(let i=0;i<S.pairs*2;i++)S.students.push({id:i,name:(S.names[i]||'').trim()||`Star ${i+1}`,look:genLook(),club:null});
+  S.students=[];for(let i=0;i<S.pairs*2;i++)S.students.push({id:i,name:(S.names[i]||'').trim()||`Star ${i+1}`,look:S.looks[i]||(S.looks[i]=genLook()),club:null});
   S.pair=0;S.history=[];S.champ=null;S.flow=null;courtyard([]);
 }
 
@@ -1480,6 +1535,20 @@ const LUCKY=[
   {ic:'👯',ti:'ASK TWO FRIENDS',tx:"Ask two friends:<br>“Are you good at dancing?”"},
   {ic:'🎤',ti:'SAY IT LOUD!',tx:"Say it LOUD:<br>“I'm good at ___ing!”"},
 ];
+const CARD_ICONS=['🗣️','❓','🌟','🎤','💬','🎯','🚀','🎈'];
+const DEFAULT_CARDS=LUCKY.map(d=>`${d.ti.replace(/!$/,'')}: ${d.tx.replace(/<br>/g,' ')}`);
+function loadCards(){try{const v=JSON.parse(localStorage.getItem('sa_cards')||'null');if(Array.isArray(v)&&v.length)return v;}catch(_){}return DEFAULT_CARDS.slice();}
+S.cards=loadCards();
+function parseCard(line,k){const m=line.match(/^([^:“"]{1,24}):\s*(.+)$/);const ti=(m?m[1]:'CHALLENGE').trim().toUpperCase(),tx=m?m[2]:line;
+  const def=LUCKY.find(d=>d.ti.replace(/!$/,'')===ti.replace(/!$/,''));return{ic:def?def.ic:CARD_ICONS[k%CARD_ICONS.length],ti,tx:esc(tx),lucky:/^LUCKY DAY/.test(ti),blank:tx.includes('___')};}
+function cardsModal(){
+  modal(`<p class="h2" style="margin-bottom:6px">🍀 Lucky Cards</p><div class="h3" style="font-size:28px">One card per line. Title before the colon (optional):<br><b>SING IT: Sing and say “I'm good at singing!”</b></div>
+    <textarea class="wbt" id="cbt" spellcheck="false" style="font-size:28px;width:1300px">${esc(S.cards.join('\n'))}</textarea>
+    <div class="row" style="gap:24px"><button class="btn gray" data-act="reset" style="font-size:38px">↺ Default cards</button><button class="btn orange" data-act="cancel" style="font-size:38px">Cancel</button><button class="btn green" data-act="save" style="font-size:38px">✔ Save</button></div>`,
+    {save(){const v=$('#cbt').value.split('\n').map(s=>s.trim()).filter(Boolean).slice(0,30);S.cards=v.length?v:DEFAULT_CARDS.slice();
+        try{localStorage.setItem('sa_cards',JSON.stringify(S.cards));}catch(_){}closeModal();toast(`🍀 Lucky Cards saved (${S.cards.length} cards)`);},
+     reset(){$('#cbt').value=DEFAULT_CARDS.join('\n');},cancel:closeModal});
+}
 const DEFAULT_WORDS=['singing','dancing','swimming','cooking','drawing','reading','running','skating','playing basketball','playing the guitar','playing the piano','playing baseball','painting','using computers'];
 function loadWords(){try{const v=JSON.parse(localStorage.getItem('sa_words')||'null');if(Array.isArray(v)&&v.length)return v;}catch(_){}return DEFAULT_WORDS.slice();}
 S.words=loadWords();
@@ -1494,17 +1563,18 @@ function wordsModal(after){
 }
 function lucky(){
   const f=S.flow,l=f.l,c=f.club;
-  const deck=shuffle(LUCKY.filter(x=>x.ti!=='LUCKY DAY!')).slice(0,4);deck.splice(ri(0,4),0,LUCKY[3]);
-  screen(`<div class="row" style="gap:24px"><div style="width:130px;height:156px">${avatarSVG(l)}</div><div class="col" style="gap:0;align-items:flex-start"><p class="h1 neon" style="--c:#3dff8b;font-size:72px">🍀 ${esc(l.name)}, pick a Lucky Card!</p></div></div>
-    <div class="cards">${deck.map((d,i)=>`<div class="lcard" data-act="pick:${i}" data-quiet style="animation-delay:${i*.1}s;--dx:${(2-i)*334}px"><div class="face back"><span>⭐</span></div><div class="face front"><div class="ic">${d.ic}</div><div class="ti">${d.ti}</div><div class="tx">${d.tx}</div></div></div>`).join('')}</div>
-    <div id="after" style="height:150px;margin-top:70px;display:flex;align-items:center;position:relative;z-index:10"></div>
+  const all=S.cards.map(parseCard),ld=all.filter(d=>d.lucky),rest=all.filter(d=>!d.lucky);
+  const deck=shuffle(rest).slice(0,ld.length?4:5);if(ld.length)deck.splice(ri(0,deck.length),0,ld[0]);const n=deck.length;
+  screen(`<div class="row" style="gap:24px"><div style="width:130px;height:156px">${avatarSVG(l)}</div><div class="col" style="gap:0;align-items:flex-start"><p class="h1 neon" style="--c:#3dff8b;font-size:62px">🍀 ${esc(l.name)}, pick a Lucky Card!</p></div></div>
+    <div class="cards">${deck.map((d,i)=>`<div class="lcard" data-act="pick:${i}" data-quiet style="animation-delay:${i*.1}s;--dx:${((n-1)/2-i)*334}px"><div class="face back"><span>⭐</span></div><div class="face front"><div class="ic">${d.ic}</div><div class="ti">${d.ti}</div><div class="tx" style="font-size:${d.tx.length>90?21:d.tx.length>60?25:30}px">${d.tx}</div></div></div>`).join('')}</div>
+    <div id="after" style="height:130px;margin-top:56px;display:flex;align-items:center;position:relative;z-index:10"></div>
     <div class="hintbar" id="hints" style="opacity:0;transition:.5s">${hintChips()}</div><div id="wbbtn" style="opacity:0;transition:.5s;margin-top:10px"><button class="btn gray" data-act="words" style="font-size:30px;padding:8px 30px">📝 Edit word bank</button></div>`,
     {bg:'club',club:c,acts:{pick(i){flip(+i);},done:()=>join(),words:()=>wordsModal(()=>{const hb=$('#hints');if(hb)hb.innerHTML=hintChips();})},skip:()=>{if(!picked)flip(0);else join();}});
   let picked=false;
   function flip(i){
     if(picked)return;picked=true;sfx.flip();
     const cards=ui.querySelectorAll('.lcard');cards.forEach((el,j)=>{el.style.animation='none';if(j===i)el.classList.add('flipped');else el.classList.add('fade');});
-    setTimeout(()=>{(deck[i].ti==='LUCKY DAY!'?sfx.gold:sfx.yes)();if(deck[i].ti!=='LUCKY DAY!'&&deck[i].ti!=='TEAM CHEER'){$('#hints').style.opacity=1;$('#wbbtn').style.opacity=1;}},500);
+    setTimeout(()=>{(deck[i].lucky?sfx.gold:sfx.yes)();if(deck[i].blank){$('#hints').style.opacity=1;$('#wbbtn').style.opacity=1;}},500);
     setTimeout(()=>{$('#after').innerHTML=`<button class="btn green big" data-act="done">✔ Done!</button>`;},900);
   }
 }
