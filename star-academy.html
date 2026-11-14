@@ -1487,7 +1487,7 @@ function coach(k){
     if(answered)return;answered=true;(yes?sfx.yes:sfx.good)();
     const a=el.querySelector('#ans');
     a.outerHTML=`<div class="sayit"><div class="coachsay">${yes?'Great! Show me! 💪':"That's OK! Let's try! 🙂"}</div>
-      <div class="saybox" style="--c:${c.c}"><div class="lbl">🗣️ Everyone, say it together!</div><div class="ln">${yes?`“Yes, I am! I'm good at <b>${c.act}</b>!”`:`“No, I'm not. But I want to try!”`}</div></div>
+      <div class="saybox" style="--c:${c.c}"><div class="lbl">🗣️ Say:</div><div class="ln">${yes?`“Yes, I am! I'm good at <b>${c.act}</b>!”`:`“No, I'm not. But I want to try!”`}</div></div>
       <button class="btn cyan" data-act="nx">Next ▶</button></div>`;
     cur.acts.nx=go;cur.skip=go;
   }
@@ -1499,15 +1499,7 @@ function whoFirst(){
   const f=S.flow,c=f.club;
   screen(`<p class="h1 neon" style="--c:${c.c}">✊ ✋ ✌️</p><p class="h2" style="margin:10px 0 40px">Rock, paper, scissors! Who plays first?</p>
     <div class="row" style="gap:80px">${[f.a,f.b].map((s,i)=>`<button class="pcard" style="--c:${i?'#2de2ff':'#ff3df2'}" data-act="first:${i}"><div class="pav">${avatarSVG(s)}</div><div class="pn">${esc(s.name)}</div><div class="sub">👆 Plays first</div></button>`).join('')}</div>`,
-    {bg:'club',club:c,acts:{first(i){f.order=i==='1'?[f.b,f.a]:[f.a,f.b];predict();}},skip:()=>{f.order=[f.a,f.b];predict();}});
-}
-function predict(){
-  const f=S.flow,c=f.club;
-  screen(`<p class="h1 neon" style="--c:${c.c}">🔮 Class, who will win?</p>
-    <div class="saybox" style="margin:20px 0 34px"><div class="lbl">🗣️ Say:</div><div class="ln">“I think ___ will win!”</div></div>
-    <div class="row" style="gap:80px">${[f.a,f.b].map((s,i)=>`<button class="pcard" style="--c:${i?'#2de2ff':'#ff3df2'};width:440px" data-act="p:${i}"><div class="pav" style="width:190px;height:228px">${avatarSVG(s)}</div><div class="pn">${esc(s.name)}</div><div class="sub">👆 The class thinks…</div></button>`).join('')}</div>
-    <button class="btn gray" data-act="skip" style="margin-top:30px;font-size:34px;padding:10px 36px">Skip ▶</button>`,
-    {bg:'club',club:c,acts:{p(i){f.pred=i==='1'?f.b:f.a;ready(0);},skip(){f.pred=null;ready(0);}},skip:()=>{f.pred=null;ready(0);}});
+    {bg:'club',club:c,acts:{first(i){f.order=i==='1'?[f.b,f.a]:[f.a,f.b];ready(0);}},skip:()=>{f.order=[f.a,f.b];ready(0);}});
 }
 /* ---------- READY ---------- */
 function gameCardHTML(G){return `<div class="howto">${G.howto.map(([i,t])=>`<div><span>${i}</span>${t}</div>`).join('')}</div>
@@ -1556,7 +1548,7 @@ function winner(w,l){
   screen(`<div class="h3">🏆 WINNER 🏆</div>
     <div class="row" style="gap:50px;margin:10px 0"><div style="width:300px;height:360px;animation:dance .5s ease-in-out infinite alternate">${avatarSVG(w,c.c)}</div>
     <div class="col" style="gap:6px;align-items:flex-start"><div class="h1">${esc(w.name)}</div><p class="h1 neon" style="--c:${c.c};font-size:96px;text-align:left">Welcome to the<br>${c.name} club! ${c.emoji}</p></div></div>
-    <div class="row h3" style="gap:60px">${f.order.map((s,i)=>`<span>${esc(s.name)}: <b style="color:#ffe14d">${f.scores[i]}</b></span>`).join('')}${f.pred?`<span style="color:${f.pred===w?'#3dff8b':'#ff9d2e'}">🔮 ${f.pred===w?'The class was right! 🎉':'Surprise! 😲'}</span>`:''}</div>
+    <div class="row h3" style="gap:60px">${f.order.map((s,i)=>`<span>${esc(s.name)}: <b style="color:#ffe14d">${f.scores[i]}</b></span>`).join('')}</div>
     <div class="askbox"><div class="q">🗣️ Teacher: “Is ${esc(w.name)} good at ${c.act}?”</div><div class="a">Class: “Yes, she is!” / “Yes, he is!”</div></div>
     <div style="margin-top:22px"><button class="btn cyan big" data-act="next">🍀 Lucky Card for ${esc(l.name)} ▶</button></div>`,
     {bg:'club',club:c,acts:{next:()=>lucky()},skip:()=>lucky()});
